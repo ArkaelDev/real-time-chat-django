@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="max-w-lg mx-auto flex flex-col items-center pt-4 px-4 my-20 rounded-md bg-slate-800">
+    <div class="text-center content-center">
+        <h1 class="text-rose-300 mb-4">Complete your profile</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        {% if profile.avatar %}
+        {{ form.avatar }} <button class="bg-white" type="submit" >Submit</button>
+        <img class="bg-rose-300 w-36 h-36 rounded-full mb-4 mx-auto mt-4" id="id_image" src="/static/img/{{ profile.avatar }}.svg" />
+        {% else %}
+        {{ form.avatar }} <button class="bg-white" type="submit" >Submit</button>
+        <img class="bg-rose-300 w-36 h-36 p-4 mt-4 mb-4 rounded-full mx-auto" id="id_image" src="/static/img/noun-profile.svg" />
+        {% endif %}
+        <h1 class=" text-2xl mb-2">{{ form.displayname }}</h1>
+        <div class="text-rose-300 m-4">@{{ profile.user.username }}</div>
+        <div class="mt-8  ">{{ form.info }}</div>
+
+
+    </div>
+</div>
+
+<script>
+    const avatar = document.querySelector('#id_avatar')
+    const imgInput = document.querySelector('#id_image')
+
+    avatar.addEventListener('change', (event) =>{
+    const option = event.currentTarget.value
+    loadImage(option ? option : 'noun-profile')
+
+    function loadImage(option){
+        let imgLink = `/static/img/${option}.svg`
+        imgInput.src = imgLink
+    }
+})
+
+</script>
+{% endblock %}

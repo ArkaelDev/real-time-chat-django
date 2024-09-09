@@ -1,0 +1,41 @@
+{% extends "layouts/base.html" %}
+{% load allauth i18n %}
+{% block head_title %}
+    {% trans "Signup" %}
+{% endblock head_title %}
+
+
+{% block content %}
+<div class="w-96 h-96 p-4 bg-slate-800 my-20 mx-auto rounded-md">
+    <div class="m-4 rounded-md p-4 bg-white">
+    {% setvar link %}
+        <a href="{{ login_url }}">
+        {% endsetvar %}
+        {% setvar end_link %}
+        </a>
+    {% endsetvar %}
+ <h1 class="mb-4">Already have an account? <a class="text-rose-300" href="{% url 'account_login' %}">sign in</a></h1>
+    {% if not SOCIALACCOUNT_ONLY %}
+        {% url 'account_signup' as action_url %}
+        {% element form form=form method="post" action=action_url tags="entrance,signup" %}
+            {% slot body %}
+                {% csrf_token %}
+                <label for="id_username" class="mb-4">Username:</label>
+                {{form.username}}
+                <label for="id_password1" class="mb-4">Password:</label>
+                {{form.password1}}
+                <label for="id_password2" class="mb-4">Confirm Password:</label>
+                {{form.password2}}
+               
+                {{ redirect_field }}
+            {% endslot %}
+            {% slot actions %}
+                <button type="submit" class="text-rose-300 mt-4">Sign up</button>
+            {% endslot %}
+        {% endelement %}
+    {% endif %}
+    {% if SOCIALACCOUNT_ENABLED %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    {% endif %}
+{% endblock content %}
+</div></div>

@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<div class="max-w-lg mx-auto flex flex-col items-center pt-4 px-4 my-20 rounded-md bg-slate-800">
+    <div class="text-center">
+        {% if profile.avatar %}
+        <img class="bg-rose-300 w-36 h-36 rounded-full mb-4" src="/static/img/{{ profile.avatar }}.svg" />
+        {% else %}
+        <img class="bg-rose-300 w-36 h-36 p-4 mb-4 rounded-full" src="/static/img/noun-profile.svg" />
+        {% endif %}
+        <h1 class="text-rose-300 text-2xl mb-2">{{ profile.name }}</h1>
+        <div class="text-rose-300 m-4">@{{ profile.user.username }}</div>
+        {% if profile.info %}
+        <div class="mt-8  text-rose-300">{{ profile.info|linebreaksbr }}</div>
+        {% endif %} 
+        <div class="m-4">
+            <h1 class="text-rose-300 text-md">
+                <a href="{% url 'profile_edit' %}" class="">edit profile</a>
+            </h1>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% tailwind_css %}
+</head>
+<body class="w-screen h-screen">
+    <div class="
+     h-16 w-screen bg-slate-800 p-3 justify-center">
+        <ul class="mx-auto w-1/2 flex text-rose-300 justify-between">
+            <li class="h-10 w-max bg-white rounded-md border-8 border-white"><a href="{% url 'home' %}" class="">Home</a></li>
+            <li class="h-10 w-max bg-white rounded-md border-8 border-white"><a href="{% url 'chats' %}">Chat</a></li>
+            {% if request.user.is_authenticated %}
+            <li class="h-10 w-max bg-white rounded-md border-8 border-white"><a href="{% url 'profile' %}" class="">Profile</a></li>
+            <li class="h-10 w-max bg-white rounded-md border-8 border-white"><a href="{% url 'account_logout' %}">Logout</a></li>
+            {% else %}
+            <li class="h-10 w-max bg-white rounded-md border-8 border-white"><a href="{% url 'account_login' %}">Sign in</a></li>
+            <li class="h-10 w-max bg-white rounded-md border-8 border-white"><a href="{% url 'account_signup' %}?next={% url 'onboarding' %}">Sign up</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

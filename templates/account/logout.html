@@ -1,0 +1,19 @@
+{% extends 'layouts/base.html' %}
+{% load allauth i18n %}
+{% block content %}
+<div class="w-96 h-96 p-8 bg-slate-800 my-20 mx-auto rounded-md">
+    <div class="m-12 rounded-md p-4 bg-white">
+    <h1 class="">Are you sure you wanna sign out?</h1>
+    {% url 'account_logout' as action_url %}
+    {% element form method="post" action=action_url no_visible_fields=True %}
+        {% slot body %}
+            {% csrf_token %}
+            {{ redirect_field }}
+        {% endslot %}
+        {% slot actions %}
+          <button class="mt-4 text-rose-300" type="submit">Sign out</button>
+        {% endslot %}
+    {% endelement %}
+</div>
+</div>
+{% endblock content %}

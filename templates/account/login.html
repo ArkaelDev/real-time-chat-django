@@ -1,0 +1,43 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+{% load allauth account %}
+
+{% block content %}
+<div class="w-96 h-96 p-4 bg-slate-800 my-20 mx-auto rounded-md">
+    <div class="m-4 rounded-md p-4 bg-white">
+    {% if not SOCIALACCOUNT_ONLY %}
+
+        {% setvar link %}
+            <a class="text-rose-300" href="{{ signup_url }}">
+            {% endsetvar %}
+            {% setvar end_link %}
+            </a>
+        {% endsetvar %}
+        <h1 class="mb-4">If you don't have an account please <a class="text-rose-300" href="{% url 'account_signup' %}">sign up</a></h1>
+        {% url 'account_login' as login_url %}
+        {% element form form=form method="post" action=login_url tags="entrance,login" %}
+            {% slot body %}
+                {% csrf_token %}
+                <label for="id_login">Username:</label>
+                {{form.login}}
+                <label for="id_password">Password:</label>
+                {{form.password}}
+                {{ redirect_field }}
+            {% endslot %}
+            {% slot actions %}
+            <button class="mt-4 text-rose-300" type="submit">Sing in</button>
+            {% endslot %}
+        {% endelement %}
+    {% endif %}
+    {% if SOCIALACCOUNT_ENABLED %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    {% endif %}
+{% endblock content %}
+{% block extra_body %}
+    {{ block.super }}
+    {% if PASSKEY_LOGIN_ENABLED %}
+        {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
+    {% endif %}
+        </div>
+        </div>
+{% endblock %}
