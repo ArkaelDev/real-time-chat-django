@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'chat',
     'allauth',
     'allauth.account',
+    "django_htmx",
 
     # Optional -- requires install using `django-allauth[socialaccount]`.
     'allauth.socialaccount',
@@ -79,6 +80,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'core.urls'
