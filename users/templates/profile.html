@@ -15,9 +15,15 @@
         <div class="mt-8  text-rose-300">{{ profile.info|linebreaksbr }}</div>
         {% endif %} 
         <div class="m-4">
+            {% if profile.user == user %}
             <h1 class="text-rose-300 text-md">
                 <a href="{% url 'profile_edit' %}" class="">edit profile</a>
             </h1>
+            {% else %}
+            <h1 class="text-rose-300 text-md">
+                <a href="{% url 'startchat' profile.user.username %}" class="">Message</a>
+            </h1>
+            {% endif %}
         </div>
     </div>
 </div>
