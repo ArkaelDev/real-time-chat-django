@@ -1,0 +1,11 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="max-w-lg mx-auto flex flex-col items-center py-6 px-4 my-20 rounded-md bg-slate-800">
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.groupchat_name }}
+    <button class="h-10 w-max bg-white rounded-md border-8 border-white text-rose-300 my-6" type="submit"> Create New Group</button>
+</form>
+</div>
+{% endblock %}
